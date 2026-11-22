@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secret Proyect: JI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="jarvisInterface">
+        <h1>J.A.R.V.I.S.</h1>
+
+        <div id = "hudCircle" class="hud-circle">
+            <div class="hud-ring"></div>
+            <div class="hud-ring-reverse"></div>
+            <div class="hud-core"></div>
+        </div>
+
+        <div class="dialogue">
+            <p id="statustext">J.A.R.V.I.S. offline. System not initialized.</p>
+        </div>
+
+    
+        <div class="button-container">
+            <button id="initializeBtn">Initialize J.A.R.V.I.S.</button>
+
+            <div class="response-buttons">
+                <button id="YesBtn">Yes</button>
+                <button id="NoBtn">No</button>
+            </div>
+
+            <h2 id="movieTitle">AVENGERS: DOOMSDAY</h2>
+        </div>
+    </div>
+
+    <div id="trailerInterface">
+        <iframe
+            id="trailerVideo"
+            title="Avengers: Doomsday Trailer"
+            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,342 @@
+#jarvisInterface {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+
+    box-sizing: border-box;
+
+    transition: opacity 2s ease;
+}
+
+#jarvisInterface.fade-out {
+    opacity: 0;
+}
+
+body {
+    background-color: black;
+    text-align: center;
+    font-family: Arial, sans-serif;
+
+    margin:  0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: safe center;
+    min-height: 100vh;
+
+    transition: background-color 2s ease;
+}
+
+body.reveal {
+    background-color: rgb(86, 1, 1);
+}
+
+h1 {
+    color: cyan;
+    font-size: 48px;
+    
+}
+
+p {
+    color: white;
+    
+}
+
+button {
+    background-color: darkblue;
+    color: white;
+    padding: 15px;
+    border: 1px solid cyan;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#initializeBtn {
+    opacity: 0;
+    transform: scale(0.7);
+
+    transition: opacity 1s ease,
+                transform 1s ease;
+}
+
+#initializeBtn.reveal {
+    opacity: 1;
+    transform: scale(1);
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity:1;
+    }
+
+    100% {
+        opacity: 0.6;
+    }
+}
+
+.hud-circle {
+    position: relative;
+
+    width: 120px;
+    height: 120px;
+    border: 2px solid cyan;
+    border-radius: 50%;
+    background-color: #06142a;
+
+    box-shadow: 0 0 5px cyan;
+
+    animation: pulse 2s infinite;
+
+    transition: background-color 1s ease, 
+                box-shadow 1s ease, 
+                border-color 1s ease;
+}
+
+.hud-circle.active {
+    background-color: darkblue;
+
+    box-shadow: 0 0 15px cyan, 
+                0 0 25px cyan, 
+                inset 0 0 20px cyan;
+
+    
+}
+
+.hud-circle.reveal {
+    background-color: darkred;
+
+    border-color: yellow;
+
+    box-shadow: 0 0 15px yellow, 
+                0 0 25px yellow, 
+                inset 0 0 20px yellow;
+
+
+
+}
+
+@keyframes rotate {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+.hud-ring {
+    position: absolute;
+
+    width: 90px;
+    height: 90px;
+    border: 2px dashed cyan;
+    border-radius: 50%;
+
+    top: 50%;
+    left: 50%;
+
+    animation: rotate 8s linear infinite;
+
+    transition: border-color 2s ease;
+}
+
+.hud-ring-reverse {
+    position: absolute;
+
+    width: 60px;
+    height: 60px;
+    border: 3px dotted cyan;
+    border-radius: 50%;
+
+    top: 50%;
+    left: 50%;
+
+    animation: rotate 5s linear infinite;
+    animation-direction: reverse;
+
+    transition: border-color 2s ease;
+}
+
+.hud-circle.reveal .hud-ring {
+    border-color: yellow;
+}
+
+.hud-circle.reveal .hud-ring-reverse {
+    border-color: yellow;
+}
+
+.hud-core {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background-color: rgb(174, 240, 240);
+    border-radius: 50%;
+
+    box-shadow: 0 0 50px cyan, 
+                0 0 20px white, 
+                inset 0 0 10px lightcyan;
+
+    top: 50%;
+    left: 50%;
+    
+    transform: translate(-50%, -50%);
+
+    transition: background-color 1s ease, 
+                box-shadow 1s ease;
+}
+.hud-circle.reveal .hud-core {
+    background-color: yellow;
+
+    box-shadow: 0 0 50px yellow, 
+                inset 0 0 10px lightyellow;
+}
+
+.button-container {
+    display: grid;
+    place-items: center;
+}
+
+#initializeBtn, #movieTitle, .response-buttons {
+    grid-area: 1 / 1;
+}
+
+.response-buttons {
+    display: flex;
+    gap: 10px;
+    visibility: hidden;
+
+    opacity: 0;
+
+    transition: opacity 0.5s ease;
+    
+}
+
+.response-buttons.visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+#movieTitle {
+    margin: 0;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    color: #90ee90;
+
+    text-shadow: 0 0 0px green;
+
+    transition: opacity 2s ease,
+                text-shadow 2s ease,
+                transform 2s ease;
+
+    transform: scale(0.7);
+}
+
+#movieTitle.reveal {
+    opacity: 1;
+
+    text-shadow: 0 0 4px limegreen,
+                0 0 10px green;
+
+    transform: scale(1);
+
+}
+
+@media (orientation: portrait) and (max-width: 600px) {
+    #movieTitle {
+        font-size: 24px;
+    }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+    h1 {
+        font-size: 28px;
+    }
+
+    #movieTitle{
+        font-size: 24px;
+    }
+
+    .hud-circle {
+        width: 90px;
+        height: 90px;
+    }
+
+    .hud-ring {
+        width: 65px;
+        height: 65px;
+    }
+
+    .hud-ring-reverse {
+        width: 45px;
+        height: 45px;
+    }
+
+}
+
+#statustext {
+    color: white;
+
+    opacity: 1;
+
+    transition: opacity 0.5s ease;
+}
+
+#statustext.fade-out {
+    opacity: 0;
+}
+
+#trailerInterface {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #090c15;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 2s ease,
+                visibility 2s ease;
+
+}
+
+#trailerInterface.visible {
+    opacity: 1;
+    visibility: visible;
+
+}
+
+#trailerInterface iframe {
+    aspect-ratio: 16 / 9;
+    width: min(90vw, 1100px, 151.11vh);
+    border: none;
+
+    height: auto;
+    max-height: 85vh;
+
+}
+
+.dialogue {
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
