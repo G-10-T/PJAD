@@ -11,6 +11,9 @@
     box-sizing: border-box;
 
     transition: opacity 2s ease;
+
+    position: relative;
+    z-index: 2; 
 }
 
 #jarvisInterface.fade-out {
@@ -18,7 +21,13 @@
 }
 
 body {
-    background-color: black;
+    background: radial-gradient(
+                ellipse at center,
+                rgb(10, 45, 70) 0%,
+                rgb(3, 15, 35) 35%,
+                black 100%
+    );  
+
     text-align: center;
     font-family: Arial, sans-serif;
 
@@ -29,11 +38,66 @@ body {
     justify-content: safe center;
     min-height: 100vh;
 
-    transition: background-color 2s ease;
+    overflow-x: hidden;
 }
 
-body.reveal {
-    background-color: rgb(86, 1, 1);
+body::before {
+    content: "";
+    position: fixed;
+    inset: -50px;
+
+    background:
+        linear-gradient(
+            to right,
+            rgba(0, 255, 255, 0.08) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            to bottom,
+            rgba(0, 255, 255, 0.08) 1px,
+            transparent 1px
+        );
+
+    background-size: 50px 50px;
+
+    pointer-events: none;
+    z-index: 1;
+
+    animation: gridFloat 30s linear infinite;
+    will-change: transform; 
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background: radial-gradient(
+        ellipse at center,
+        rgb(64, 95, 6) 0%,
+        rgb(18, 54, 0) 35%,
+        black 100%
+    );
+
+    opacity: 0;
+    transition: opacity 3s ease-in-out;
+
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes gridFloat {
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(50px, 50px);
+    }
+}
+
+body.reveal::after {
+    opacity: 1;
 }
 
 h1 {
@@ -44,6 +108,7 @@ h1 {
 
 p {
     color: white;
+    font-size: larger;
     
 }
 
@@ -99,9 +164,12 @@ button:disabled {
 
     animation: pulse 2s infinite;
 
+    transform: scale(var(--hud-scale, 1));
+
     transition: background-color 1s ease, 
                 box-shadow 1s ease, 
-                border-color 1s ease;
+                border-color 1s ease,
+                transform 0.08s ease-out;
 }
 
 .hud-circle.active {
@@ -115,15 +183,13 @@ button:disabled {
 }
 
 .hud-circle.reveal {
-    background-color: darkred;
+    background-color: darkgreen;
 
-    border-color: yellow;
+    border-color: greenyellow;
 
-    box-shadow: 0 0 15px yellow, 
-                0 0 25px yellow, 
-                inset 0 0 20px yellow;
-
-
+    box-shadow: 0 0 15px greenyellow, 
+                0 0 25px greenyellow, 
+                inset 0 0 20px greenyellow;
 
 }
 
@@ -171,12 +237,14 @@ button:disabled {
 }
 
 .hud-circle.reveal .hud-ring {
-    border-color: yellow;
+    border-color: greenyellow;
 }
 
 .hud-circle.reveal .hud-ring-reverse {
-    border-color: yellow;
+    border-color: greenyellow;
 }
+
+
 
 .hud-core {
     position: absolute;
@@ -185,23 +253,42 @@ button:disabled {
     background-color: rgb(174, 240, 240);
     border-radius: 50%;
 
-    box-shadow: 0 0 50px cyan, 
+    box-shadow: 0 0 var(--voice-glow, 30px) cyan, 
                 0 0 20px white, 
                 inset 0 0 10px lightcyan;
 
     top: 50%;
     left: 50%;
     
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(var(--voice-scale, 1));
 
     transition: background-color 1s ease, 
-                box-shadow 1s ease;
+                box-shadow 0s,
+                transform 0.08s ease-out;
 }
-.hud-circle.reveal .hud-core {
-    background-color: yellow;
 
-    box-shadow: 0 0 50px yellow, 
+.hud-circle.settling {
+    transition: background-color 1s ease,
+                box-shadow 1s ease,
+                border-color 1s ease,
+                transform 0.4s ease-out;
+}
+
+.hud-circle.settling .hud-ring-segments {
+    transition: --segment-color 2s ease,
+                transform 0.4s ease-out;
+
+}
+
+.hud-circle.reveal .hud-core {
+    background-color: greenyellow;
+
+    box-shadow: 0 0 50px greenyellow, 
                 inset 0 0 10px lightyellow;
+
+    transition: background-color 1s ease,
+                box-shadow 1s ease,
+                transform 0.08s ease-out;
 }
 
 .button-container {
@@ -253,7 +340,7 @@ button:disabled {
     text-shadow: 0 0 4px limegreen,
                 0 0 10px green;
 
-    transform: scale(1);
+    transform: scale(2);
 
 }
 
@@ -308,7 +395,14 @@ button:disabled {
     align-items: center;
     justify-content: center;
 
-    background-color: #090c15;
+    background: radial-gradient(
+        ellipse at center,
+        rgb(64, 95, 6) 0%,
+        rgb(18, 54, 0) 35%,
+        black 100%
+    );
+
+z-index: 3;
 
     opacity: 0;
     visibility: hidden;
@@ -339,4 +433,103 @@ button:disabled {
     align-items: center;
     justify-content: center;
 
+}
+
+@keyframes voicePulse{
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+    
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.hud-ring-outer {
+    position: absolute;
+
+    width: 110px;
+    height: 110px;
+
+    border-radius: 50%;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+
+
+    animation: rotate 12s linear infinite;
+}
+
+@property --segment-color {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: cyan;
+}
+
+.hud-ring-segments {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+
+    background: conic-gradient(
+        var(--segment-color) 0deg 85deg,
+        transparent 85deg 110deg,
+        var(--segment-color) 110deg 140deg,
+        transparent 140deg 160deg,
+        var(--segment-color) 160deg 225deg,
+        transparent 225deg 260deg,
+        var(--segment-color) 260deg 305deg,
+        transparent 305deg 360deg
+
+    );
+
+    mask: radial-gradient(
+        transparent 60%,
+        black 70%
+    );
+
+    --segment-color: cyan;
+
+    transform: scale(var(--segment-scale, 1));
+
+    transition: --segment-color 2s ease,
+            transform 0.08s ease-out;
+}
+
+.hud-circle.reveal .hud-ring-segments {
+    --segment-color: greenyellow;
+    
+}
+
+@keyframes ringSizePulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+
+.hud-circle.speaking .hud-ring,
+.hud-circle.reveal .hud-ring {
+    animation-duration: 3s;
+}
+
+.hud-circle.speaking .hud-ring-reverse,
+.hud-circle.reveal .hud-ring-reverse {
+    animation-duration: 2s;
 }

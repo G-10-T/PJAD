@@ -1,23 +1,27 @@
 {
-    "initialization": "JARVIS online. System operational.",
+    "initialization": "JARVIS Online. System Operational.",
 
-    "greeting": "Good evening, sir. I am JARVIS., your personal AI assistant.",
+    "greeting": "Good day, sir. I am JARVIS, Mr. Stark personal AI assistant.",
 
-    "introduction": "I have been instructed to deliver a special message to you.",
+    "introduction": "I have been instructed by the Avengers to deliver an urgent message to you.",
 
-    "q1": "Before proceeding, may I ask you a question?",
 
-    "ans1_yes": "Excellent. the question is as follows",
+    "q1": "Are you ready to listen the message?",
+
+
+    "yes1": "Very well, the message states as follows.",
+
+    "yes2": "Your presence has been requested on December 19 - 20",
     
-    "ans1_no": "I understand. Perhaps another time.",
+    "yes3": "To aid the Avengers against...",
 
-    "q2": "Are you available for an upcoming event on December 19 to 20?",
 
-    "ans2_yes1": "Very well. I will proceed with the message.",
+    "no1": "I understand, sir. But I must insists due to the urgency of the message.",
 
-    "ans2_yes2": "You have been cordially invited to watch...",
+    "no2": "Your presence has been requested on December 19 - 20",
 
-    "goodbye": "Goodbye, sir.",
+    "no3": "To aid the Avengers against...",
 
-    "sd": "J.A.R.V.I.S. Shutting Down"
+    "title": "DOOM"
+
 }
