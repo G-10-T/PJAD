@@ -164,10 +164,6 @@ function voice(key, onFinished) {
     const audio = new Audio(`Audio/en/${key}.mp3`);
     audio.playbackRate = 1;
 
-    if (key === "title") {
-        audio.playbackRate = 0.50;
-        audio.preservesPitch = false;
-    }
     const source = audioContext.createMediaElementSource(audio);
 
     source.connect(analyser);
@@ -323,28 +319,30 @@ responseButtons.addEventListener('click', function(event) {
 
                     setTimeout(function() {
                         changeDialogue("");
-                        movieTitle.classList.add("reveal");
-                    
-                        setTimeout(function() {
-                            jarvisInterface.addEventListener("transitionend", function(event) {
-                                if (event.target === jarvisInterface &&
-                                    event.propertyName === "opacity" &&
-                                    jarvisInterface.classList.contains("fade-out")) {
-
-                                    jarvisInterface.style.display = "none";
-                                }
-                            }, { once: true });
-
-                            jarvisInterface.classList.add("fade-out");
-
+                        voice("title", function() {
+                            console.log("Audio completed, ready for the next audio");
+                        
                             setTimeout(function() {
-                                trailerInterface.classList.add("visible");
+                                jarvisInterface.addEventListener("transitionend", function(event) {
+                                    if (event.target === jarvisInterface &&
+                                        event.propertyName === "opacity" &&
+                                        jarvisInterface.classList.contains("fade-out")) {
 
-                                trailerVideo.src = "https://www.youtube.com/embed/X1aFkAkFASk?autoplay=1&controls=1";
+                                        jarvisInterface.style.display = "none";
+                                    }
+                                }, { once: true });
 
-                            }, 1000);
+                                jarvisInterface.classList.add("fade-out");
 
-                        }, 2500);
+                                setTimeout(function() {
+                                    trailerInterface.classList.add("visible");
+
+                                    trailerVideo.src = "https://www.youtube.com/embed/X1aFkAkFASk?autoplay=1&controls=1";
+
+                                }, 1000);
+
+                            }, 500);
+                        })    
 
                     }, 1000);
                 })
@@ -370,32 +368,33 @@ responseButtons.addEventListener('click', function(event) {
 
                     setTimeout(function() {
                         changeDialogue("");
-                        movieTitle.classList.add("reveal");
-
-                        setTimeout(function() {
-                            jarvisInterface.addEventListener("transitionend", function(event) {
-                                if (event.target === jarvisInterface &&
-                                    event.propertyName === "opacity" &&
-                                    jarvisInterface.classList.contains("fade-out")) {
-
-                                    jarvisInterface.style.display = "none";
-                                }
-                            }, { once: true });
-
-                            jarvisInterface.classList.add("fade-out");
-
+                        voice("title", function() {
+                            console.log("Audio completed, ready for the next audio");
+                        
                             setTimeout(function() {
-                                trailerInterface.classList.add("visible");
+                                jarvisInterface.addEventListener("transitionend", function(event) {
+                                    if (event.target === jarvisInterface &&
+                                        event.propertyName === "opacity" &&
+                                        jarvisInterface.classList.contains("fade-out")) {
 
-                                trailerVideo.src = "https://www.youtube.com/embed/X1aFkAkFASk?autoplay=1&controls=1";
+                                        jarvisInterface.style.display = "none";
+                                    }
+                                }, { once: true });
 
-                            }, 1000);
+                                jarvisInterface.classList.add("fade-out");
 
-                        }, 2500);
+                                setTimeout(function() {
+                                    trailerInterface.classList.add("visible");
+
+                                    trailerVideo.src = "https://www.youtube.com/embed/X1aFkAkFASk?autoplay=1&controls=1";
+
+                                }, 1000);
+
+                            }, 500);
+                        });
 
                     }, 1000);
-                })
-
+                });
             });
         });
     }
